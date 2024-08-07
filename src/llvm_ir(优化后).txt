@@ -1,0 +1,77 @@
+declare i32 @getint()
+declare void @putint(i32)
+declare void @putch(i32)
+declare void @putstr(i8*)
+@a = dso_local global [6 x i32] [i32 1, i32 2, i32 3, i32 4, i32 5, i32 6]
+@b = dso_local global [3 x [3 x i32]] [[3 x i32] [i32 3, i32 8, i32 5], [3 x i32] [i32 1, i32 2, i32 0], [3 x i32] zeroinitializer]
+define dso_local void @a1(i32 %VirtualReg0) {
+a1Label0:
+    %VirtualReg1 = icmp sgt i32 %VirtualReg0, 1
+    %VirtualReg2 = zext i1 %VirtualReg1 to i32
+    %VirtualReg3 = icmp ne i32 %VirtualReg2, 0
+    br i1 %VirtualReg3, label %a1Label1, label %a1Label2
+a1Label1:
+    %VirtualReg4 = sub i32 %VirtualReg0, 1
+    call void @a1(i32 %VirtualReg4)
+    br label %a1Label2
+a1Label2:
+    ret void
+    ret void
+}
+define dso_local i32 @a2(i32 %VirtualReg0, i32* %VirtualReg1) {
+a2Label0:
+    %VirtualReg2 = alloca i32*
+    store i32* %VirtualReg1, i32* * %VirtualReg2
+    %VirtualReg3 = load i32*, i32* * %VirtualReg2
+    %VirtualReg4 = getelementptr i32, i32* %VirtualReg3, i32 2
+    %VirtualReg5 = load i32, i32* %VirtualReg4
+    %VirtualReg6 = add i32 %VirtualReg0, %VirtualReg5
+    ret i32 %VirtualReg6
+}
+define dso_local i32 @a3(i32 %VirtualReg0, i32* %VirtualReg1, [3 x i32]* %VirtualReg2) {
+a3Label0:
+    %VirtualReg3 = alloca i32*
+    store i32* %VirtualReg1, i32* * %VirtualReg3
+    %VirtualReg4 = alloca [3 x i32]*
+    store [3 x i32]* %VirtualReg2, [3 x i32]* * %VirtualReg4
+    %VirtualReg5 = load i32*, i32* * %VirtualReg3
+    %VirtualReg6 = getelementptr i32, i32* %VirtualReg5, i32 1
+    %VirtualReg7 = load i32, i32* %VirtualReg6
+    %VirtualReg8 = mul i32 %VirtualReg0, %VirtualReg7
+    %VirtualReg9 = load [3 x i32]* , [3 x i32]* * %VirtualReg4
+    %VirtualReg10 = getelementptr [3 x i32], [3 x i32]* %VirtualReg9, i32 2, i32 1
+    %VirtualReg11 = load i32, i32* %VirtualReg10
+    %VirtualReg12 = sub i32 %VirtualReg8, %VirtualReg11
+    ret i32 %VirtualReg12
+}
+define dso_local i32 @main() {
+mainLabel0:
+    %VirtualReg0 = alloca [2 x [3 x i32]]
+    %VirtualReg1 = getelementptr [2 x [3 x i32]], [2 x [3 x i32]]* %VirtualReg0, i32 0, i32 0, i32 0
+    store i32 1, i32* %VirtualReg1
+    %VirtualReg2 = getelementptr [2 x [3 x i32]], [2 x [3 x i32]]* %VirtualReg0, i32 0, i32 0, i32 1
+    store i32 2, i32* %VirtualReg2
+    %VirtualReg3 = getelementptr [2 x [3 x i32]], [2 x [3 x i32]]* %VirtualReg0, i32 0, i32 0, i32 2
+    store i32 3, i32* %VirtualReg3
+    %VirtualReg4 = getelementptr [2 x [3 x i32]], [2 x [3 x i32]]* %VirtualReg0, i32 0, i32 1, i32 0
+    store i32 0, i32* %VirtualReg4
+    %VirtualReg5 = getelementptr [2 x [3 x i32]], [2 x [3 x i32]]* %VirtualReg0, i32 0, i32 1, i32 1
+    store i32 0, i32* %VirtualReg5
+    %VirtualReg6 = getelementptr [2 x [3 x i32]], [2 x [3 x i32]]* %VirtualReg0, i32 0, i32 1, i32 2
+    store i32 0, i32* %VirtualReg6
+    %VirtualReg7 = getelementptr [2 x [3 x i32]], [2 x [3 x i32]]* %VirtualReg0, i32 0, i32 0, i32 2
+    %VirtualReg8 = load i32, i32* %VirtualReg7
+    call void @a1(i32 %VirtualReg8)
+    %VirtualReg10 = getelementptr [6 x i32], [6 x i32]* @a, i32 0, i32 4
+    %VirtualReg11 = load i32, i32* %VirtualReg10
+    %VirtualReg12 = getelementptr [6 x i32], [6 x i32]* @a, i32 0, i32 0
+    %VirtualReg13 = call i32 @a2(i32 %VirtualReg11, i32* %VirtualReg12)
+    %VirtualReg15 = getelementptr [3 x [3 x i32]], [3 x [3 x i32]]* @b, i32 0, i32 0, i32 1
+    %VirtualReg16 = load i32, i32* %VirtualReg15
+    %VirtualReg17 = getelementptr [3 x [3 x i32]], [3 x [3 x i32]]* @b, i32 0, i32 1, i32 0
+    %VirtualReg18 = getelementptr [3 x [3 x i32]], [3 x [3 x i32]]* @b, i32 0, i32 0
+    %VirtualReg19 = call i32 @a3(i32 %VirtualReg16, i32* %VirtualReg17, [3 x i32]* %VirtualReg18)
+    %VirtualReg20 = add i32 %VirtualReg13, %VirtualReg19
+    call void @putint(i32 %VirtualReg20)
+    ret i32 0
+}

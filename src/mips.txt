@@ -1,0 +1,83 @@
+# data代码段
+.data
+# text代码段
+.text
+
+# 写入函数运行栈基地址
+li $fp, 0x10040000
+li $sp, 0x7ffffffc
+li $gp, 0x10000000
+# 全局变量段
+
+
+j main
+nop
+
+fun2:
+fun2Label0:
+# New Basic Block
+move $v0, $zero
+jr $ra
+
+
+
+
+
+fun:
+move $t0, $a0
+funLabel0:
+# New Basic Block
+li $v1, 0
+addu $t0, $t0, $v1
+sw $ra, 0($sp)
+sw $fp, -4($sp)
+addi $sp, $sp, -8
+move $a0, $t0
+addi $fp, $fp, 0
+jal fun2
+addi $sp, $sp, 8
+lw $ra, 0($sp)
+lw $fp, -4($sp)
+move $v0, $zero
+jr $ra
+
+
+
+
+
+main:
+mainLabel0:
+# New Basic Block
+addi $t0, $fp, 0
+li $v1, 0
+addu $t1, $t0, $v1
+li $v0, 1
+sw $v0, 0($t1)
+li $v1, 4
+addu $t2, $t0, $v1
+li $v0, 2
+sw $v0, 0($t2)
+li $v1, 8
+addu $t0, $t0, $v1
+li $v0, 3
+sw $v0, 0($t0)
+sw $ra, 0($sp)
+sw $fp, -4($sp)
+addi $sp, $sp, -8
+move $a0, $t1
+addi $fp, $fp, 12
+jal fun
+addi $sp, $sp, 8
+lw $ra, 0($sp)
+lw $fp, -4($sp)
+move $t0, $v0
+move $a0, $t0
+li $v0, 1
+syscall
+li $v0, 10
+syscall
+
+
+
+
+

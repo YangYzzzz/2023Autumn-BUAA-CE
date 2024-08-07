@@ -1,0 +1,18 @@
+int yang = 1000;
+
+int fun2(int a[]) {
+    return 0;
+}
+int fun(int a[]) {
+    fun2(a);
+    return 0;
+}
+
+int main()
+{
+    int a[3] = {1, 2, 3};
+
+    int k = yang + yang;
+    printf("%d", fun(a));
+    return 0;
+}

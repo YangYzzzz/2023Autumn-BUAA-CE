@@ -1,0 +1,201 @@
+declare i32 @getint()
+declare void @putint(i32)
+declare void @putch(i32)
+declare void @putstr(i8*)
+@N = dso_local global i32 10
+@a = dso_local global [10 x i32] [i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9]
+define dso_local i32 @fib(i32 %VirtualReg0) {
+fibLabel0:
+    %VirtualReg1 = alloca i32
+    store i32 %VirtualReg0, i32* %VirtualReg1
+    %VirtualReg2 = load i32, i32* %VirtualReg1
+    %VirtualReg3 = icmp eq i32 %VirtualReg2, 1
+    %VirtualReg4 = zext i1 %VirtualReg3 to i32
+    %VirtualReg5 = icmp ne i32 %VirtualReg4, 0
+    br i1 %VirtualReg5, label %fibLabel1, label %fibLabel2
+fibLabel1:
+    ret i32 1
+fibLabel2:
+    %VirtualReg6 = load i32, i32* %VirtualReg1
+    %VirtualReg7 = icmp eq i32 %VirtualReg6, 2
+    %VirtualReg8 = zext i1 %VirtualReg7 to i32
+    %VirtualReg9 = icmp ne i32 %VirtualReg8, 0
+    br i1 %VirtualReg9, label %fibLabel3, label %fibLabel4
+fibLabel3:
+    ret i32 2
+fibLabel4:
+    %VirtualReg10 = load i32, i32* %VirtualReg1
+    %VirtualReg11 = sub i32 %VirtualReg10, 1
+    %VirtualReg12 = call i32 @fib(i32 %VirtualReg11)
+    %VirtualReg13 = load i32, i32* %VirtualReg1
+    %VirtualReg14 = sub i32 %VirtualReg13, 2
+    %VirtualReg15 = call i32 @fib(i32 %VirtualReg14)
+    %VirtualReg16 = add i32 %VirtualReg12, %VirtualReg15
+    ret i32 %VirtualReg16
+}
+define dso_local i32 @main() {
+mainLabel0:
+    %VirtualReg0 = alloca i32
+    store i32 2, i32* %VirtualReg0
+    %VirtualReg1 = alloca i32
+    store i32 5, i32* %VirtualReg1
+    %VirtualReg2 = alloca i32
+    store i32 1, i32* %VirtualReg2
+    %VirtualReg3 = alloca i32
+    store i32 2, i32* %VirtualReg3
+    %VirtualReg4 = call i32 @getint()
+    store i32 %VirtualReg4, i32* %VirtualReg0
+    %VirtualReg5 = call i32 @getint()
+    store i32 %VirtualReg5, i32* %VirtualReg1
+    %VirtualReg6 = load i32, i32* %VirtualReg0
+    %VirtualReg7 = load i32, i32* %VirtualReg1
+    %VirtualReg8 = mul i32 %VirtualReg6, %VirtualReg7
+    %VirtualReg9 = sub i32 0, %VirtualReg8
+    %VirtualReg10 = call i32 @fib(i32 4)
+    %VirtualReg11 = mul i32 %VirtualReg9, %VirtualReg10
+    %VirtualReg13 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 1
+    %VirtualReg14 = load i32, i32* %VirtualReg13
+    %VirtualReg15 = mul i32 %VirtualReg14, 1
+    %VirtualReg16 = add i32 %VirtualReg11, %VirtualReg15
+    %VirtualReg19 = mul i32 %VirtualReg16, 5
+    store i32 %VirtualReg19, i32* %VirtualReg0
+    %VirtualReg23 = call i32 @fib(i32 5)
+    %VirtualReg24 = add i32 %VirtualReg23, 2
+    %VirtualReg25 = call i32 @fib(i32 %VirtualReg24)
+    %VirtualReg26 = sub i32 1197, %VirtualReg25
+    %VirtualReg43 = add i32 %VirtualReg26, -10091
+    store i32 %VirtualReg43, i32* %VirtualReg1
+    %VirtualReg44 = alloca i32
+    %VirtualReg45 = sub i32 0, 6
+    store i32 %VirtualReg45, i32* %VirtualReg44
+    br label %mainLabel1
+mainLabel1:
+    %VirtualReg46 = load i32, i32* %VirtualReg0
+    %VirtualReg47 = icmp slt i32 %VirtualReg46, 100
+    %VirtualReg48 = zext i1 %VirtualReg47 to i32
+    %VirtualReg49 = icmp ne i32 %VirtualReg48, 0
+    br i1 %VirtualReg49, label %mainLabel2, label %mainLabel4
+mainLabel2:
+    %VirtualReg50 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 0
+    %VirtualReg51 = load i32, i32* %VirtualReg50
+    %VirtualReg52 = load i32, i32* %VirtualReg44
+    %VirtualReg53 = load i32, i32* %VirtualReg44
+    %VirtualReg54 = mul i32 %VirtualReg52, %VirtualReg53
+    %VirtualReg55 = add i32 %VirtualReg51, %VirtualReg54
+    %VirtualReg56 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 0
+    store i32 %VirtualReg55, i32* %VirtualReg56
+    %VirtualReg57 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 1
+    %VirtualReg58 = load i32, i32* %VirtualReg57
+    %VirtualReg59 = load i32, i32* %VirtualReg44
+    %VirtualReg60 = load i32, i32* %VirtualReg44
+    %VirtualReg61 = mul i32 %VirtualReg59, %VirtualReg60
+    %VirtualReg62 = add i32 %VirtualReg58, %VirtualReg61
+    %VirtualReg63 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 1
+    store i32 %VirtualReg62, i32* %VirtualReg63
+    %VirtualReg64 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 2
+    %VirtualReg65 = load i32, i32* %VirtualReg64
+    %VirtualReg66 = load i32, i32* %VirtualReg44
+    %VirtualReg67 = load i32, i32* %VirtualReg44
+    %VirtualReg68 = mul i32 %VirtualReg66, %VirtualReg67
+    %VirtualReg69 = add i32 %VirtualReg65, %VirtualReg68
+    %VirtualReg70 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 2
+    store i32 %VirtualReg69, i32* %VirtualReg70
+    %VirtualReg71 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 3
+    %VirtualReg72 = load i32, i32* %VirtualReg71
+    %VirtualReg73 = load i32, i32* %VirtualReg44
+    %VirtualReg74 = load i32, i32* %VirtualReg44
+    %VirtualReg75 = mul i32 %VirtualReg73, %VirtualReg74
+    %VirtualReg76 = add i32 %VirtualReg72, %VirtualReg75
+    %VirtualReg77 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 3
+    store i32 %VirtualReg76, i32* %VirtualReg77
+    %VirtualReg78 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 4
+    %VirtualReg79 = load i32, i32* %VirtualReg78
+    %VirtualReg80 = load i32, i32* %VirtualReg44
+    %VirtualReg81 = load i32, i32* %VirtualReg44
+    %VirtualReg82 = mul i32 %VirtualReg80, %VirtualReg81
+    %VirtualReg83 = add i32 %VirtualReg79, %VirtualReg82
+    %VirtualReg84 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 4
+    store i32 %VirtualReg83, i32* %VirtualReg84
+    %VirtualReg85 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 5
+    %VirtualReg86 = load i32, i32* %VirtualReg85
+    %VirtualReg87 = load i32, i32* %VirtualReg44
+    %VirtualReg88 = load i32, i32* %VirtualReg44
+    %VirtualReg89 = mul i32 %VirtualReg87, %VirtualReg88
+    %VirtualReg90 = add i32 %VirtualReg86, %VirtualReg89
+    %VirtualReg91 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 5
+    store i32 %VirtualReg90, i32* %VirtualReg91
+    %VirtualReg92 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 6
+    %VirtualReg93 = load i32, i32* %VirtualReg92
+    %VirtualReg94 = load i32, i32* %VirtualReg44
+    %VirtualReg95 = load i32, i32* %VirtualReg44
+    %VirtualReg96 = mul i32 %VirtualReg94, %VirtualReg95
+    %VirtualReg97 = add i32 %VirtualReg93, %VirtualReg96
+    %VirtualReg98 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 6
+    store i32 %VirtualReg97, i32* %VirtualReg98
+    %VirtualReg99 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 7
+    %VirtualReg100 = load i32, i32* %VirtualReg99
+    %VirtualReg101 = load i32, i32* %VirtualReg44
+    %VirtualReg102 = load i32, i32* %VirtualReg44
+    %VirtualReg103 = mul i32 %VirtualReg101, %VirtualReg102
+    %VirtualReg104 = add i32 %VirtualReg100, %VirtualReg103
+    %VirtualReg105 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 7
+    store i32 %VirtualReg104, i32* %VirtualReg105
+    %VirtualReg106 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 8
+    %VirtualReg107 = load i32, i32* %VirtualReg106
+    %VirtualReg108 = load i32, i32* %VirtualReg44
+    %VirtualReg109 = load i32, i32* %VirtualReg44
+    %VirtualReg110 = mul i32 %VirtualReg108, %VirtualReg109
+    %VirtualReg111 = add i32 %VirtualReg107, %VirtualReg110
+    %VirtualReg112 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 8
+    store i32 %VirtualReg111, i32* %VirtualReg112
+    %VirtualReg113 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 9
+    %VirtualReg114 = load i32, i32* %VirtualReg113
+    %VirtualReg115 = load i32, i32* %VirtualReg44
+    %VirtualReg116 = load i32, i32* %VirtualReg44
+    %VirtualReg117 = mul i32 %VirtualReg115, %VirtualReg116
+    %VirtualReg118 = add i32 %VirtualReg114, %VirtualReg117
+    %VirtualReg119 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 9
+    store i32 %VirtualReg118, i32* %VirtualReg119
+    br label %mainLabel3
+mainLabel3:
+    %VirtualReg120 = load i32, i32* %VirtualReg0
+    %VirtualReg121 = add i32 %VirtualReg120, 1
+    store i32 %VirtualReg121, i32* %VirtualReg0
+    br label %mainLabel1
+mainLabel4:
+    store i32 0, i32* %VirtualReg0
+    br label %mainLabel5
+mainLabel5:
+    %VirtualReg122 = load i32, i32* %VirtualReg0
+    %VirtualReg123 = icmp slt i32 %VirtualReg122, 10
+    %VirtualReg124 = zext i1 %VirtualReg123 to i32
+    %VirtualReg125 = icmp ne i32 %VirtualReg124, 0
+    br i1 %VirtualReg125, label %mainLabel6, label %mainLabel8
+mainLabel6:
+    %VirtualReg126 = load i32, i32* %VirtualReg0
+    %VirtualReg127 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 %VirtualReg126
+    %VirtualReg128 = load i32, i32* %VirtualReg127
+    call void @putint(i32 %VirtualReg128)
+    call void @putch(i32 44)
+    call void @putch(i32 32)
+    %VirtualReg129 = load i32, i32* %VirtualReg0
+    %VirtualReg130 = add i32 %VirtualReg129, 1
+    store i32 %VirtualReg130, i32* %VirtualReg0
+    br label %mainLabel7
+mainLabel7:
+    br label %mainLabel5
+mainLabel8:
+    %VirtualReg131 = load i32, i32* %VirtualReg0
+    %VirtualReg132 = load i32, i32* %VirtualReg1
+    %VirtualReg133 = load i32, i32* %VirtualReg44
+    call void @putch(i32 10)
+    call void @putint(i32 %VirtualReg131)
+    call void @putch(i32 44)
+    call void @putch(i32 32)
+    call void @putint(i32 %VirtualReg132)
+    call void @putch(i32 44)
+    call void @putch(i32 32)
+    call void @putint(i32 %VirtualReg133)
+    call void @putch(i32 10)
+    ret i32 0
+}
