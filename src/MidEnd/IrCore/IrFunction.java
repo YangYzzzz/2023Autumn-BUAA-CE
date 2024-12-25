@@ -716,22 +716,22 @@ public class IrFunction extends User {
         Stack<Value> valueStack = new Stack<>();
         Set<Value> valuesCopyGraph = new HashSet<>(valuesInFunction);
         while (!valuesCopyGraph.isEmpty()) {
-            // 合并
-            for (MoveConnect moveConnect : sameValuesInMove) {
-                Value combineValue = moveConnect.value1;
-                Value combinedValue = moveConnect.value2;
-                // 自己和自己不允許合并
-                if (!combineValue.isInStack && !combinedValue.isInStack && !combinedValue.equal(combineValue) && canCombine(combineValue, combinedValue)) {
-                    combinedValue.combineValue = combineValue;
-                    System.out.println(combineValue.value + " " + combinedValue.value + "可以合并");
-                    // 抹除combined的所有痕迹
-                    sameValuesInMove.remove(moveConnect);
-                    clearCombinedValue(combineValue, combinedValue);
-                    // 将被合并结点删除，将对应move记录删除
-                    valuesCopyGraph.remove(combinedValue);
-                    break;
-                }
-            }
+            // 合并，和常量传播有冲突，注释掉合并这一步。一种可能的解决方案是将常量传播的move和mem2reg的move区分开 12.25记录
+//            for (MoveConnect moveConnect : sameValuesInMove) {
+//                Value combineValue = moveConnect.value1;
+//                Value combinedValue = moveConnect.value2;
+//                // 自己和自己不允許合并
+//                if (!combineValue.isInStack && !combinedValue.isInStack && !combinedValue.equal(combineValue) && canCombine(combineValue, combinedValue)) {
+//                    combinedValue.combineValue = combineValue;
+//                    System.out.println(combineValue.value + " " + combinedValue.value + "可以合并");
+//                    // 抹除combined的所有痕迹
+//                    sameValuesInMove.remove(moveConnect);
+//                    clearCombinedValue(combineValue, combinedValue);
+//                    // 将被合并结点删除，将对应move记录删除
+//                    valuesCopyGraph.remove(combinedValue);
+//                    break;
+//                }
+//            }
 
             // 简化
             for (Value value : valuesCopyGraph) {

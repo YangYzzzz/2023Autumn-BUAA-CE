@@ -949,14 +949,6 @@ public class MipsInstructionBlock {
                 flag = 1;
                 d = -d;
             }
-//            if ((cnt = getLeftShiftNum(d)) != -1) {
-//                op1ToReg(op1);
-//                mipsInstructions.add(new Srl(irInstruction.reg, op1.reg, cnt));
-//                if (flag == 1) {
-//                    mipsInstructions.add(new Sub(irInstruction.reg, ZERO, irInstruction.reg));
-//                }
-//                return;
-//            }
 
             BigDecimal left, right, m = BigDecimal.valueOf(0);
             for (l = 0; l < 32; l++) {
@@ -968,7 +960,7 @@ public class MipsInstructionBlock {
                 }
             }
             // 得到了m和l
-            if (l < 32 && m.compareTo(BigDecimal.valueOf(2).pow(32)) < 0) {
+            if (l < 32 && m.compareTo(BigDecimal.valueOf(2).pow(31)) < 0) {
                 System.out.println("进行除法优化！！！！！！！");
                 this.divLabel1 = curMipsFunction.allocDivLabel();
                 this.divLabel2 = curMipsFunction.allocDivLabel();
